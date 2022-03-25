@@ -55,45 +55,45 @@ namespace FlavorTreat.Controllers
 
     public ActionResult Details(int id)
     {
-      var thisItem = _db.Items
-          .Include(item => item.JoinEntities)
-          .ThenInclude(join => join.Category)
-          .FirstOrDefault(item => item.ItemId == id);
-      return View(thisItem);
+      var thisFlavor = _db.Flavors
+          .Include(f => f.JoinEntities)
+          .ThenInclude(join => join.Treat)
+          .FirstOrDefault(f => f.FlavorId == id);
+      return View(thisFlavor);
     }
 
     public ActionResult Edit(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
-      return View(thisItem);
+      var thisFlavor = _db.Flavors.FirstOrDefault(f => f.FlavorId == id);
+      ViewBag.CategoryId = new SelectList(_db.Treats, "TreatId", "TreatName");
+      return View(thisFlavor);
     }
 
     [HttpPost]
-    public ActionResult Edit(Item item, int CategoryId)
+    public ActionResult Edit( Flavor flavor, int TreatId)
     {
-      if (CategoryId != 0)
+      if (TreatId != 0)
       {
-        _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
+        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
-      _db.Entry(item).State = EntityState.Modified;
+      _db.Entry(flavor).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
-    public ActionResult AddCategory(int id)
+    public ActionResult AddTreat(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
-      return View(thisItem);
+      var thisFlavor = _db.Flavors.FirstOrDefault(f => f.FlavorId == id);
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatName");
+      return View(thisFlavor);
     }
 
     [HttpPost]
-    public ActionResult AddCategory(Item item, int CategoryId)
+    public ActionResult AddTreat(Flavor flavor, int TreatId)
     {
-      if (CategoryId != 0)
+      if (TreatId != 0)
       {
-      _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
+      _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -101,8 +101,8 @@ namespace FlavorTreat.Controllers
 
     public ActionResult Delete(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(f => f.FlavorId == id);
-      return View(thisItem);
+      var thisFlavor = _db.Flavors.FirstOrDefault(f => f.FlavorId == id);
+      return View(thisFlavor);
     }
 
     [HttpPost, ActionName("Delete")]
@@ -115,7 +115,7 @@ namespace FlavorTreat.Controllers
     }
 
     [HttpPost]
-    public ActionResult DeleteCategory(int joinId)
+    public ActionResult DeleteTreat(int joinId)
     {
       var joinEntry = _db.FlavorTreat.FirstOrDefault(entry => entry.FlavorTreatId == joinId);
       _db.FlavorTreat.Remove(joinEntry);
