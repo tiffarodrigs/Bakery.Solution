@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@using FlavorTreat.Models;
+@model IEnumerable<FlavorTreat.Models.Flavor>
+
+<h1>Flavors for @User.Identity.Name</h1>
+
+@if (Model.Any())
+{
+  <ul>
+    @foreach (Flavor flavor in Model)
+    {
+      <li>@Html.ActionLink($"{flavor.Description}", "Details", new { id = flavor.FlavorId })</li>
+    }
+  </ul>
+} 
+else
+{
+  <h3>No items have been added yet!</h3>
+}
+
+<p>@Html.ActionLink("Add new flavor", "Create")</p>
+
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

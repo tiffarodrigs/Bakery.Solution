@@ -17,7 +17,7 @@ namespace FlavorTreat.Controllers
     private readonly FlavorTreatContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public FlavorsController(UserManager<ApplicationUser> userManager, ToDoListContext db)
+    public FlavorsController(UserManager<ApplicationUser> userManager, FlavorTreatContext db)
     {
       _userManager = userManager;
       _db = db;
@@ -38,16 +38,16 @@ namespace FlavorTreat.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Item item, int CategoryId)
+    public async Task<ActionResult> Create(Flavor flavor, int CategoryId)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      item.User = currentUser;
-      _db.Flavors.Add(item);
+      flavor.User = currentUser;
+      _db.Flavors.Add(flavor);
       _db.SaveChanges();
-      if (CategoryId != 0)
+      if (TreatId != 0)
       {
-          _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
+          _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
