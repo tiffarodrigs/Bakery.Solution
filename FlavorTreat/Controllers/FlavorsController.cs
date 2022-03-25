@@ -33,12 +33,12 @@ namespace FlavorTreat.Controllers
 
     public ActionResult Create()
     {
-      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatName");
       return View();
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Flavor flavor, int CategoryId)
+    public async Task<ActionResult> Create(Flavor flavor, int TreatId)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
@@ -65,7 +65,7 @@ namespace FlavorTreat.Controllers
     public ActionResult Edit(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(f => f.FlavorId == id);
-      ViewBag.CategoryId = new SelectList(_db.Treats, "TreatId", "TreatName");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatName");
       return View(thisFlavor);
     }
 
