@@ -1,0 +1,20 @@
+
+@{
+  Layout = "_Layout";
+}
+@model Bakery.Models.Treat;
+<h4> Add Flavor to this treat :@Html.DisplayFor(m=>m.TreatName)</h4>
+@if(ViewBag.treatList!=0)
+{
+  @using(Html.BeginForm())
+  {
+    @Html.HiddenFor(m => m.TreatId)
+    @Html.Label("select Flavor")
+    @Html.DropDownList("FlavorId")
+    <input type="submit" value="Save"/>
+  }
+}
+else
+{
+  <h3>Create new Flavor to be displayed</h3>
+}
