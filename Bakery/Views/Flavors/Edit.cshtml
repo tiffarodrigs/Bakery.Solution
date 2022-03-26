@@ -1,0 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+@model Bakery.Models.Flavor;
+
+<h4> Edit this Flavor : @Html.DisplayFor(m => m.FlavorName) </h4>
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(m => m.FlavorId)
+
+  @Html.LabelFor(m => m.FlavorName)
+  @Html.EditorFor(m => m.FlavorName)
+
+  @Html.Label("Select Treat")
+  @Html.DropDownList("TreatId")
+  <input type="submit" value="Save" />
+}
