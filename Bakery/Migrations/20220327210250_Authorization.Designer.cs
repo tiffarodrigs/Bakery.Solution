@@ -3,14 +3,16 @@ using System;
 using Bakery.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bakery.Migrations
 {
     [DbContext(typeof(BakeryContext))]
-    partial class BakeryContextModelSnapshot : ModelSnapshot
+    [Migration("20220327210250_Authorization")]
+    partial class Authorization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,8 +1,41 @@
 @{
   Layout = "_Layout";
 }
+<div class="flex-container">
+  <div class="flex-child">
+    <h1>Treats & Flavors</h1>
+    @using Bakery.Models
+    @if(@ViewBag.Flavors.Count == 0)
+    {
+      <h4> No flavors have been added yet</h4>
+    }
+    else
+    {
+      <h4>List of Flavors:</h4>
+      @foreach(Flavor flav in @ViewBag.Flavors )
+      {
+      <h4>@Html.ActionLink($"{flav.FlavorName}","Details","Flavors",new{id= flav.FlavorId})</h4>
+      }
+    }
 
-<h1>Welcome to the Pierre's Sweet and Savory Treats</h1>
-<p>@Html.ActionLink("See all Flavors","Index","Flavors")</p>
-<p>@Html.ActionLink("See all Treats", "Index", "Treats")</p>
-<p>@Html.ActionLink("Create an account", "Index", "Account")</p>
+    @if(@ViewBag.Treats.Count == 0)
+    {
+      <h4> No Treats have been added yet</h4>
+    }
+    else
+    {
+      <h4>List of Treats:</h4>
+      @foreach(Treat trt in @ViewBag.Treats )
+      {
+        <h4>@Html.ActionLink($"{trt.TreatName}","Details","Treats",new{id= trt.TreatId})</h4>
+      }
+    }
+    <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
+  </div>    
+  <div class="flex-child cake">
+    <img src="/cake.jpeg" alt="cake">
+  </div>
+</div>  
+
+@*<p>@Html.ActionLink("See all Flavors","Index","Flavors")</p>
+<p>@Html.ActionLink("See all Treats", "Index", "Treats")</p>*@

@@ -1,0 +1,37 @@
+p.menu{
+  font-size: 25px;
+  /* font-size: 5px;
+  font-family: fantasy; */
+  color:blue;
+}
+
+
+
+body {
+  background-color: #a06e73;
+  margin: 10px; 
+  text-align: center;
+  margin-top: 7%;
+}
+
+.mainBox{
+  background-color: #FFDDCC;
+  min-height: 80vh;
+  margin: 5%;
+}
+.flex-container{
+  display:flex;
+}
+.flex-child{
+  flex:1;
+}
+h1,h4,h5{
+  color: #99154E;
+}
+h3,label{
+  color:#007965;
+}
+a{
+  color:#DA723C;
+  font-size:medium;
+}
