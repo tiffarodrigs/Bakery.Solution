@@ -14,6 +14,7 @@
 * _CSS_
 * _Linq_
 * _HtmlHelper_
+* _Identity_
 
 
 
@@ -40,7 +41,6 @@ _
 * _Create your own database by Navigating to the Bakery directory in terminal run the following command:_
   * _Run "dotnet restore" in Terminal then hit enter_
   * _Run "dotnet build" to Terminal_
-  * _Run "dotnet ef migration add InitialCreate"_
   * _Run "dotnet ef database update"_
   * _Run dotnet run_
   * _Visit http://localhost:5000_
