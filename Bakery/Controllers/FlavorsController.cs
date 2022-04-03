@@ -5,14 +5,21 @@ using Bakery.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 namespace Bakery.Controllers
 {
   public class FlavorsController  : Controller
   {
     private readonly BakeryContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-    public FlavorsController(BakeryContext db)
+
+    public FlavorsController(UserManager<ApplicationUser> userManager,BakeryContext db)
     {
+       _userManager = userManager;
       _db=db;
     }
     public ActionResult Index()
@@ -20,6 +27,7 @@ namespace Bakery.Controllers
         List<Flavor> model = _db.Flavors.ToList();
         return View(model);
     }
+      [Authorize]
     public ActionResult Create()
     {
       ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatName");
@@ -38,7 +46,7 @@ namespace Bakery.Controllers
       }
       return RedirectToAction("Index");
     }
-
+[AllowAnonymous]
     public ActionResult Details(int id)
     {
       var thisFlavor = _db.Flavors
@@ -48,7 +56,7 @@ namespace Bakery.Controllers
       return View(thisFlavor);
 
     }
-
+[Authorize]
     public ActionResult Edit(int id)
     {
         var thisFlavor = _db.Flavors.FirstOrDefault(m => m.FlavorId == id);
@@ -68,7 +76,7 @@ namespace Bakery.Controllers
         _db.SaveChanges();     
         return RedirectToAction("Index");
     }
-
+[Authorize]
     public ActionResult Delete(int id)
     {
         var thisFlavor = _db.Flavors.FirstOrDefault(m => m.FlavorId == id);
@@ -82,7 +90,7 @@ namespace Bakery.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
       }  
-
+[Authorize]
     public ActionResult AddTreat(int id)
     {  
       var flaTreatEntries = _db.FlavorTreat.Where(m => m.FlavorId == id);        
@@ -115,6 +123,8 @@ namespace Bakery.Controllers
         } 
         return RedirectToAction("Index");
     }
+
+    [Authorize]
     [HttpPost]
     public ActionResult DeleteTreat(int joinId)
     {

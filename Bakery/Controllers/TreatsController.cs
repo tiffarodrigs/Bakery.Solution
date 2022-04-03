@@ -23,8 +23,8 @@ namespace Bakery.Controllers
       _db=db;
     }
 
-   // public ActionResult Index()
-    public async Task<ActionResult> Index()
+    public ActionResult Index()
+    //public async Task<ActionResult> Index()
     {
       //      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       // Console.WriteLine("userId" +userId);
